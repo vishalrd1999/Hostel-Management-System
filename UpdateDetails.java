@@ -1,29 +1,33 @@
 import java.awt.EventQueue;
-
+import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
-public class UpdateDetails {
+public class RegisterPage1 {
 
-	public JFrame updatedet;
-	private JTextField idinp;
+	private JFrame frame;
+	private JTextField nameinp;
 	private JTextField mailinp;
 	private JTextField mobinp;
-	private JTextField delsidinp;
+	private JTextField dobinp;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final Action action = new SwingAction();
 
 	/**
 	 * Launch the application.
@@ -32,8 +36,10 @@ public class UpdateDetails {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateDetails window = new UpdateDetails();
-					window.updatedet.setVisible(true);
+					RegisterPage1 window = new RegisterPage1();
+					
+					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,7 +50,7 @@ public class UpdateDetails {
 	/**
 	 * Create the application.
 	 */
-	public UpdateDetails() {
+	public RegisterPage1() {
 		initialize();
 	}
 
@@ -52,133 +58,123 @@ public class UpdateDetails {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		updatedet = new JFrame();
-		updatedet.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		updatedet.getContentPane().setBackground(new Color(255, 255, 153));
-		updatedet.setTitle("Update Student's Details");
-		updatedet.setBounds(100, 100, 487, 510);
-		updatedet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		updatedet.getContentPane().setLayout(null);
+		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(255, 255, 153));
+		frame.setBounds(100, 100, 522, 446);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
-		JLabel updatelbl = new JLabel("Update Student Details");
-		updatelbl.setHorizontalAlignment(SwingConstants.CENTER);
-		updatelbl.setForeground(Color.RED);
-		updatelbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		updatelbl.setBounds(10, 10, 443, 25);
-		updatedet.getContentPane().add(updatelbl);
+		JLabel titlelbl = new JLabel("Register Here");
+		titlelbl.setHorizontalAlignment(SwingConstants.CENTER);
+		titlelbl.setForeground(Color.RED);
+		titlelbl.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		titlelbl.setBackground(new Color(255, 255, 153));
+		titlelbl.setBounds(10, 10, 488, 37);
+		frame.getContentPane().add(titlelbl);
 		
-		JLabel sidlbl = new JLabel("Enter ID of Student");
-		sidlbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		sidlbl.setBounds(44, 98, 124, 13);
-		updatedet.getContentPane().add(sidlbl);
+		JLabel namelbl = new JLabel("Enter Name of Student");
+		namelbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		namelbl.setBounds(38, 94, 131, 13);
+		frame.getContentPane().add(namelbl);
 		
-		JLabel maillbl = new JLabel("Updated Email Id");
-		maillbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		maillbl.setBounds(44, 149, 112, 13);
-		updatedet.getContentPane().add(maillbl);
+		JLabel emaillbl = new JLabel("Enter Email Id");
+		emaillbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		emaillbl.setBounds(38, 123, 131, 13);
+		frame.getContentPane().add(emaillbl);
 		
-		JLabel moblbl = new JLabel("Update Mobile No");
-		moblbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		moblbl.setBounds(44, 244, 112, 13);
-		updatedet.getContentPane().add(moblbl);
+		JLabel genlbl = new JLabel("Gender");
+		genlbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		genlbl.setBounds(38, 178, 131, 13);
+		frame.getContentPane().add(genlbl);
 		
-		JLabel clslbl = new JLabel("Update Class");
+		JLabel clslbl = new JLabel("Select Class");
 		clslbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		clslbl.setBounds(44, 191, 112, 13);
-		updatedet.getContentPane().add(clslbl);
+		clslbl.setBounds(38, 242, 131, 13);
+		frame.getContentPane().add(clslbl);
 		
-		idinp = new JTextField();
-		idinp.setBounds(256, 96, 148, 19);
-		updatedet.getContentPane().add(idinp);
-		idinp.setColumns(10);
+		JLabel moblbl = new JLabel("Enter Mobile No");
+		moblbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		moblbl.setBounds(38, 278, 131, 13);
+		frame.getContentPane().add(moblbl);
+		
+		JLabel doblbl = new JLabel("Date of birth");
+		doblbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		doblbl.setBounds(38, 307, 131, 13);
+		frame.getContentPane().add(doblbl);
+		
+		JButton submitbtn = new JButton("SUBMIT");
+		submitbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Dashboard();
+				//JOptionPane.showMessageDialog(null,"You clicked button");
+			}
+		});
+		submitbtn.setForeground(Color.RED);
+		submitbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
+		submitbtn.setBackground(new Color(255, 153, 102));
+		submitbtn.setBounds(197, 355, 85, 21);
+		frame.getContentPane().add(submitbtn);
+		
+		nameinp = new JTextField();
+		nameinp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		nameinp.setFont(new Font("Dialog", Font.PLAIN, 11));
+		nameinp.setColumns(10);
+		nameinp.setBounds(234, 92, 202, 19);
+		frame.getContentPane().add(nameinp);
 		
 		mailinp = new JTextField();
-		mailinp.setBounds(256, 147, 148, 19);
-		updatedet.getContentPane().add(mailinp);
+		mailinp.setFont(new Font("Dialog", Font.PLAIN, 11));
 		mailinp.setColumns(10);
+		mailinp.setBounds(234, 121, 202, 19);
+		frame.getContentPane().add(mailinp);
 		
 		JComboBox classinp = new JComboBox();
 		classinp.setModel(new DefaultComboBoxModel(new String[] {"FE", "SE", "TE", "BE", "ME"}));
 		classinp.setMaximumRowCount(5);
-		classinp.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		classinp.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		classinp.setBackground(new Color(255, 255, 153));
-		classinp.setBounds(256, 188, 148, 21);
-		updatedet.getContentPane().add(classinp);
+		classinp.setBounds(234, 239, 96, 21);
+		frame.getContentPane().add(classinp);
 		
 		mobinp = new JTextField();
-		mobinp.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		mobinp.setBounds(256, 242, 148, 19);
-		updatedet.getContentPane().add(mobinp);
+		mobinp.setFont(new Font("Dialog", Font.PLAIN, 11));
 		mobinp.setColumns(10);
+		mobinp.setBounds(234, 275, 202, 19);
+		frame.getContentPane().add(mobinp);
 		
-		JButton updatebtn = new JButton("UPDATE");
-		updatebtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == updatebtn)
-				{
-					String s1 = idinp.getText();
-					String s2 = mailinp.getText();
-					String s3 = (String) classinp.getItemAt(classinp.getSelectedIndex());
-					String s4 = mobinp.getText();		
-					
-				try {
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
-					PreparedStatement ps = con.prepareStatement("update student set email=?,class=?,mob=? where sid=?");
-					ps.setString(1,s2);
-					ps.setString(2,s3);
-					ps.setString(3,s4);
-					ps.setString(4,s1);
-					ps.executeUpdate();
-					con.close();
-				}
-				catch(Exception re) {
-					System.out.println(re);
-				}
-			}
-			}
-		});
-		updatebtn.setBackground(new Color(255, 204, 153));
-		updatebtn.setForeground(Color.RED);
-		updatebtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-		updatebtn.setBounds(185, 289, 85, 30);
-		updatedet.getContentPane().add(updatebtn);
+		dobinp = new JTextField();
+		dobinp.setFont(new Font("Dialog", Font.PLAIN, 11));
+		dobinp.setColumns(10);
+		dobinp.setBounds(234, 304, 202, 19);
+		frame.getContentPane().add(dobinp);
 		
-		JLabel sidlbl_1 = new JLabel("Enter ID of Student");
-		sidlbl_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		sidlbl_1.setBounds(44, 359, 124, 13);
-		updatedet.getContentPane().add(sidlbl_1);
+		JRadioButton selmaleinp = new JRadioButton("MALE");
+		buttonGroup.add(selmaleinp);
+		selmaleinp.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		selmaleinp.setBackground(new Color(255, 255, 153));
+		selmaleinp.setBounds(234, 175, 96, 21);
+		frame.getContentPane().add(selmaleinp);
 		
-		delsidinp = new JTextField();
-		delsidinp.setColumns(10);
-		delsidinp.setBounds(256, 357, 148, 19);
-		updatedet.getContentPane().add(delsidinp);
-		
-		JButton deletebtn = new JButton("DELETE STUDENT");
-		deletebtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == deletebtn)
-				{
-					String s1 = delsidinp.getText();	
-					
-				try {
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
-					PreparedStatement ps = con.prepareStatement("delete from student where sid=?");
-					ps.setString(1,s1);
-					ps.executeUpdate();
-					con.close();
-				}
-				catch(Exception re) {
-					System.out.println(re);
-				}
-			}
-			}
-		});
-		deletebtn.setForeground(Color.RED);
-		deletebtn.setBackground(new Color(255, 204, 153));
-		deletebtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-		deletebtn.setBounds(143, 401, 160, 30);
-		updatedet.getContentPane().add(deletebtn);
+		JRadioButton selfemaleinp = new JRadioButton("FEMALE");
+		buttonGroup.add(selfemaleinp);
+		selfemaleinp.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		selfemaleinp.setBackground(new Color(255, 255, 153));
+		selfemaleinp.setBounds(234, 197, 96, 21);
+		frame.getContentPane().add(selfemaleinp);
+	}
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 }
+
+
