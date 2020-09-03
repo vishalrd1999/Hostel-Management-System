@@ -1,3 +1,5 @@
+package stqaproj1;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,7 +16,7 @@ public class Dashboard {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -25,7 +27,7 @@ public class Dashboard {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
@@ -44,6 +46,7 @@ public class Dashboard {
 		dashboard.setBounds(100, 100, 532, 339);
 		dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dashboard.getContentPane().setLayout(null);
+		dashboard.setVisible(true);
 		
 		JLabel welcomelbl = new JLabel("Welcome to Hostel Management System");
 		welcomelbl.setHorizontalAlignment(SwingConstants.CENTER);
