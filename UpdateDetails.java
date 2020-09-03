@@ -9,10 +9,17 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.awt.event.ActionEvent;
 
 public class UpdateDetails {
 
-	private JFrame updatedet;
+	public JFrame updatedet;
 	private JTextField idinp;
 	private JTextField mailinp;
 	private JTextField mobinp;
@@ -90,13 +97,13 @@ public class UpdateDetails {
 		updatedet.getContentPane().add(mailinp);
 		mailinp.setColumns(10);
 		
-		JComboBox clsinp = new JComboBox();
-		clsinp.setModel(new DefaultComboBoxModel(new String[] {"FE", "SE", "TE", "BE", "ME"}));
-		clsinp.setMaximumRowCount(5);
-		clsinp.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		clsinp.setBackground(new Color(255, 255, 153));
-		clsinp.setBounds(256, 188, 148, 21);
-		updatedet.getContentPane().add(clsinp);
+		JComboBox classinp = new JComboBox();
+		classinp.setModel(new DefaultComboBoxModel(new String[] {"FE", "SE", "TE", "BE", "ME"}));
+		classinp.setMaximumRowCount(5);
+		classinp.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		classinp.setBackground(new Color(255, 255, 153));
+		classinp.setBounds(256, 188, 148, 21);
+		updatedet.getContentPane().add(classinp);
 		
 		mobinp = new JTextField();
 		mobinp.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -105,6 +112,32 @@ public class UpdateDetails {
 		mobinp.setColumns(10);
 		
 		JButton updatebtn = new JButton("UPDATE");
+		updatebtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == updatebtn)
+				{
+					String s1 = idinp.getText();
+					String s2 = mailinp.getText();
+					String s3 = (String) classinp.getItemAt(classinp.getSelectedIndex());
+					String s4 = mobinp.getText();		
+					
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+					PreparedStatement ps = con.prepareStatement("update student set email=?,class=?,mob=? where sid=?");
+					ps.setString(1,s2);
+					ps.setString(2,s3);
+					ps.setString(3,s4);
+					ps.setString(4,s1);
+					ps.executeUpdate();
+					con.close();
+				}
+				catch(Exception re) {
+					System.out.println(re);
+				}
+			}
+			}
+		});
 		updatebtn.setBackground(new Color(255, 204, 153));
 		updatebtn.setForeground(Color.RED);
 		updatebtn.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -122,6 +155,26 @@ public class UpdateDetails {
 		updatedet.getContentPane().add(delsidinp);
 		
 		JButton deletebtn = new JButton("DELETE STUDENT");
+		deletebtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == deletebtn)
+				{
+					String s1 = delsidinp.getText();	
+					
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+					PreparedStatement ps = con.prepareStatement("delete from student where sid=?");
+					ps.setString(1,s1);
+					ps.executeUpdate();
+					con.close();
+				}
+				catch(Exception re) {
+					System.out.println(re);
+				}
+			}
+			}
+		});
 		deletebtn.setForeground(Color.RED);
 		deletebtn.setBackground(new Color(255, 204, 153));
 		deletebtn.setFont(new Font("Tahoma", Font.BOLD, 12));
