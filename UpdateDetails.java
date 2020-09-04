@@ -57,8 +57,9 @@ public class UpdateDetails {
 		updatedet.getContentPane().setBackground(new Color(255, 255, 153));
 		updatedet.setTitle("Update Student's Details");
 		updatedet.setBounds(100, 100, 487, 510);
-		updatedet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		updatedet.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		updatedet.getContentPane().setLayout(null);
+		updatedet.setVisible(true);
 		
 		JLabel updatelbl = new JLabel("Update Student Details");
 		updatelbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -135,8 +136,11 @@ public class UpdateDetails {
 				catch(Exception re) {
 					System.out.println(re);
 				}
+			}updatedet.dispose();
+			new Dashboard();
 			}
-			}
+			
+			
 		});
 		updatebtn.setBackground(new Color(255, 204, 153));
 		updatebtn.setForeground(Color.RED);
