@@ -28,7 +28,7 @@ public class UpdateDetails {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void Update() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -159,8 +159,32 @@ public class UpdateDetails {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == deletebtn)
 				{
-					String s1 = delsidinp.getText();	
-					
+					String s1 = delsidinp.getText();
+					int rid=0;
+					try {
+						Class.forName("com.mysql.cj.jdbc.Driver");
+						Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+						PreparedStatement stmt=con.prepareStatement("select rid from alloc_room where sid=?");
+						stmt.setString(1,s1);
+						ResultSet rs=stmt.executeQuery();  
+						while(rs.next())  
+						rid = (rs.getInt(1));
+						con.close();
+					}
+					catch(Exception re) {
+						System.out.println(re);
+					}
+					try {
+						Class.forName("com.mysql.cj.jdbc.Driver");
+						Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+						PreparedStatement ps = con.prepareStatement("update room set vacancy=vacancy+1 where rid=?");
+						ps.setLong(1,rid);
+						ps.executeUpdate();
+						con.close();	
+					}
+					catch(Exception re) {
+						System.out.println(re);
+					}
 				try {
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
@@ -172,7 +196,8 @@ public class UpdateDetails {
 				catch(Exception re) {
 					System.out.println(re);
 				}
-			}
+				
+				}
 			}
 		});
 		deletebtn.setForeground(Color.RED);

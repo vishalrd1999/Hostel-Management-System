@@ -6,6 +6,9 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.*;
+import java.awt.event.ActionEvent;
 
 public class Dashboard {
 
@@ -53,18 +56,48 @@ public class Dashboard {
 		dashboard.getContentPane().add(welcomelbl);
 		
 		JButton updatedetbtn = new JButton("Update Student Details");
+		updatedetbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UpdateDetails upd = new UpdateDetails();
+				upd.Update();
+				dashboard.dispose();
+			}
+		});
 		updatedetbtn.setBackground(new Color(204, 255, 153));
 		updatedetbtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		updatedetbtn.setBounds(56, 153, 170, 21);
 		dashboard.getContentPane().add(updatedetbtn);
 		
 		JButton roomallocbtn = new JButton("Allocate Room");
+		roomallocbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AllocRoom alloc = new AllocRoom();
+				alloc.Allocation();
+				dashboard.dispose();
+			}
+		});
 		roomallocbtn.setBackground(new Color(204, 255, 153));
 		roomallocbtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		roomallocbtn.setBounds(56, 204, 170, 21);
 		dashboard.getContentPane().add(roomallocbtn);
 		
 		JButton roomdetbtn = new JButton("See Room Details");
+		roomdetbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+					Statement stmt=con.createStatement();  
+					ResultSet rs=stmt.executeQuery("select * from room");  
+					while(rs.next())  
+					System.out.println(rs.getInt(1)+"  "+rs.getInt(2)+"  "+rs.getInt(3));
+					con.close();
+				}
+				catch(Exception re) {
+					System.out.println(re);
+				}
+			}
+		});
 		roomdetbtn.setBackground(new Color(204, 255, 153));
 		roomdetbtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		roomdetbtn.setBounds(292, 104, 170, 21);
@@ -77,12 +110,26 @@ public class Dashboard {
 		dashboard.getContentPane().add(chngroombtn);
 		
 		JButton deallocroombtn = new JButton("De-allocate Room");
+		deallocroombtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeallocRoom dealloc = new DeallocRoom();
+				dealloc.Deallocation();
+				dashboard.dispose();
+			}
+		});
 		deallocroombtn.setBackground(new Color(204, 255, 153));
 		deallocroombtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		deallocroombtn.setBounds(292, 204, 170, 21);
 		dashboard.getContentPane().add(deallocroombtn);
 		
 		JButton addstudbtn = new JButton("Add New Student");
+		addstudbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegisterPage1 reg = new RegisterPage1();
+				reg.Register();
+				dashboard.dispose();
+			}
+		});
 		addstudbtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		addstudbtn.setBackground(new Color(204, 255, 153));
 		addstudbtn.setBounds(56, 105, 170, 21);
