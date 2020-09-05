@@ -59,7 +59,7 @@ public class RegisterPage1 {
 		registerpage1 = new JFrame();
 		registerpage1.setTitle("Register Student");
 		registerpage1.getContentPane().setBackground(new Color(255, 255, 153));
-		registerpage1.setBounds(100, 100, 629, 446);
+		registerpage1.setBounds(100, 100, 522, 446);
 		registerpage1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		registerpage1.getContentPane().setLayout(null);
 		
@@ -156,20 +156,6 @@ public class RegisterPage1 {
 		submitbtn.setBackground(new Color(255, 153, 102));
 		submitbtn.setBounds(197, 355, 85, 21);
 		registerpage1.getContentPane().add(submitbtn);
-		
-		JButton dashbtn = new JButton("Dashboard");
-		dashbtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
-				registerpage1.dispose();
-			}
-		});
-		dashbtn.setForeground(Color.RED);
-		dashbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-		dashbtn.setBackground(new Color(255, 204, 153));
-		dashbtn.setBounds(474, 23, 109, 21);
-		registerpage1.getContentPane().add(dashbtn);
 		submitbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == submitbtn)
@@ -201,9 +187,8 @@ public class RegisterPage1 {
 					con.close();
 				}
 				catch(Exception re) {
-					JOptionPane.showMessageDialog(null,re);
+					System.out.println(re);
 				}
-				JOptionPane.showMessageDialog(null,"Registration Successfull");
 			}
 			}
 		});

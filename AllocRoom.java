@@ -3,8 +3,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -83,7 +81,7 @@ public class AllocRoom {
 		allocroom.getContentPane().add(ridinp);
 		ridinp.setColumns(10);
 		allocroom.setTitle("Allocate Room");
-		allocroom.setBounds(100, 100, 550, 316);
+		allocroom.setBounds(100, 100, 479, 316);
 		allocroom.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton allocbtn = new JButton("Allocate");
@@ -105,7 +103,7 @@ public class AllocRoom {
 						con.close();
 					}
 					catch(Exception re) {
-						JOptionPane.showMessageDialog(null,re);
+						System.out.println(re);
 					}
 					if(vac>0)
 						{
@@ -119,7 +117,7 @@ public class AllocRoom {
 										con.close();	
 									}
 									catch(Exception re) {
-										JOptionPane.showMessageDialog(null,re);
+										System.out.println(re);
 									}
 									try {
 										Class.forName("com.mysql.cj.jdbc.Driver");
@@ -131,10 +129,9 @@ public class AllocRoom {
 										con.close();	
 									}
 									catch(Exception re) {
-										JOptionPane.showMessageDialog(null,re);
+										System.out.println(re);
 									}
 						}
-					JOptionPane.showMessageDialog(null,"Allocation Successfull");
 				}
 			}
 		});
@@ -143,19 +140,5 @@ public class AllocRoom {
 		allocbtn.setBackground(new Color(255, 204, 153));
 		allocbtn.setBounds(159, 210, 96, 21);
 		allocroom.getContentPane().add(allocbtn);
-		
-		JButton dashbtn = new JButton("Dashboard");
-		dashbtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
-				allocroom.dispose();
-			}
-		});
-		dashbtn.setForeground(Color.RED);
-		dashbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-		dashbtn.setBackground(new Color(255, 204, 153));
-		dashbtn.setBounds(400, 14, 109, 21);
-		allocroom.getContentPane().add(dashbtn);
 	}
 }

@@ -3,8 +3,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -101,7 +99,7 @@ public class DeallocRoom {
 						con.close();
 					}
 					catch(Exception re) {
-						JOptionPane.showMessageDialog(null,re);
+						System.out.println(re);
 					}
 					try {
 						Class.forName("com.mysql.cj.jdbc.Driver");
@@ -113,7 +111,7 @@ public class DeallocRoom {
 						con.close();	
 					}
 					catch(Exception re) {
-						JOptionPane.showMessageDialog(null,re);
+						System.out.println(re);
 					}
 					try {
 						Class.forName("com.mysql.cj.jdbc.Driver");
@@ -125,9 +123,8 @@ public class DeallocRoom {
 						con.close();	
 					}
 					catch(Exception re) {
-						JOptionPane.showMessageDialog(null,re);
+						System.out.println(re);
 					}
-					JOptionPane.showMessageDialog(null,"Deallocation successfull");
 				}
 			}
 		});
@@ -136,22 +133,8 @@ public class DeallocRoom {
 		deallocbtn.setBackground(new Color(255, 204, 153));
 		deallocbtn.setBounds(171, 218, 109, 21);
 		deallocroom.getContentPane().add(deallocbtn);
-		
-		JButton dashbtn = new JButton("Dashboard");
-		dashbtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
-				deallocroom.dispose();
-			}
-		});
-		dashbtn.setForeground(Color.RED);
-		dashbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-		dashbtn.setBackground(new Color(255, 204, 153));
-		dashbtn.setBounds(421, 15, 109, 21);
-		deallocroom.getContentPane().add(dashbtn);
 		deallocroom.setTitle("De-Allocate Room");
-		deallocroom.setBounds(100, 100, 583, 341);
+		deallocroom.setBounds(100, 100, 481, 341);
 		deallocroom.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
