@@ -2,6 +2,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -56,10 +58,9 @@ public class UpdateDetails {
 		updatedet.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		updatedet.getContentPane().setBackground(new Color(255, 255, 153));
 		updatedet.setTitle("Update Student's Details");
-		updatedet.setBounds(100, 100, 487, 510);
-		updatedet.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		updatedet.setBounds(100, 100, 621, 510);
+		updatedet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		updatedet.getContentPane().setLayout(null);
-		updatedet.setVisible(true);
 		
 		JLabel updatelbl = new JLabel("Update Student Details");
 		updatelbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -134,13 +135,11 @@ public class UpdateDetails {
 					con.close();
 				}
 				catch(Exception re) {
-					System.out.println(re);
+					JOptionPane.showMessageDialog(null,re);
 				}
-			}updatedet.dispose();
-			new Dashboard();
+				JOptionPane.showMessageDialog(null,"Update Successfull");
 			}
-			
-			
+			}
 		});
 		updatebtn.setBackground(new Color(255, 204, 153));
 		updatebtn.setForeground(Color.RED);
@@ -176,7 +175,7 @@ public class UpdateDetails {
 						con.close();
 					}
 					catch(Exception re) {
-						System.out.println(re);
+						JOptionPane.showMessageDialog(null,re);
 					}
 					try {
 						Class.forName("com.mysql.cj.jdbc.Driver");
@@ -187,7 +186,7 @@ public class UpdateDetails {
 						con.close();	
 					}
 					catch(Exception re) {
-						System.out.println(re);
+						JOptionPane.showMessageDialog(null,re);
 					}
 				try {
 					Class.forName("com.mysql.cj.jdbc.Driver");
@@ -198,9 +197,9 @@ public class UpdateDetails {
 					con.close();
 				}
 				catch(Exception re) {
-					System.out.println(re);
+					JOptionPane.showMessageDialog(null,re);
 				}
-				
+				JOptionPane.showMessageDialog(null,"Deleted Successfully");
 				}
 			}
 		});
@@ -209,5 +208,19 @@ public class UpdateDetails {
 		deletebtn.setFont(new Font("Tahoma", Font.BOLD, 12));
 		deletebtn.setBounds(143, 401, 160, 30);
 		updatedet.getContentPane().add(deletebtn);
+		
+		JButton dashbtn = new JButton("Dashboard");
+		dashbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Dashboard db = new Dashboard();
+				db.dashb();
+				updatedet.dispose();
+			}
+		});
+		dashbtn.setForeground(Color.RED);
+		dashbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
+		dashbtn.setBackground(new Color(255, 204, 153));
+		dashbtn.setBounds(464, 16, 109, 21);
+		updatedet.getContentPane().add(dashbtn);
 	}
 }

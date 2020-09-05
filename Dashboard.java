@@ -1,5 +1,3 @@
-package stqaproj1;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,7 +17,7 @@ public class Dashboard {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void dashb() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -30,7 +28,7 @@ public class Dashboard {
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the application.
@@ -49,7 +47,6 @@ public class Dashboard {
 		dashboard.setBounds(100, 100, 532, 339);
 		dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dashboard.getContentPane().setLayout(null);
-		dashboard.setVisible(true);
 		
 		JLabel welcomelbl = new JLabel("Welcome to Hostel Management System");
 		welcomelbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -99,6 +96,9 @@ public class Dashboard {
 				catch(Exception re) {
 					System.out.println(re);
 				}
+				/*RoomDetails roomdet = new RoomDetails();
+				roomdet.rmdet();
+				dashboard.dispose();*/
 			}
 		});
 		roomdetbtn.setBackground(new Color(204, 255, 153));
@@ -107,6 +107,13 @@ public class Dashboard {
 		dashboard.getContentPane().add(roomdetbtn);
 		
 		JButton chngroombtn = new JButton("Change Student's Room");
+		chngroombtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChangeRoom ch = new ChangeRoom();
+				ch.Change();
+				dashboard.dispose();
+			}
+		});
 		chngroombtn.setBackground(new Color(204, 255, 153));
 		chngroombtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		chngroombtn.setBounds(292, 153, 170, 21);
@@ -137,5 +144,17 @@ public class Dashboard {
 		addstudbtn.setBackground(new Color(204, 255, 153));
 		addstudbtn.setBounds(56, 105, 170, 21);
 		dashboard.getContentPane().add(addstudbtn);
+		
+		JButton exitbtn = new JButton("Exit");
+		exitbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dashboard.dispose();
+			}
+		});
+		exitbtn.setForeground(new Color(255, 0, 0));
+		exitbtn.setBackground(new Color(255, 204, 153));
+		exitbtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		exitbtn.setBounds(197, 252, 104, 21);
+		dashboard.getContentPane().add(exitbtn);
 	}
 }
