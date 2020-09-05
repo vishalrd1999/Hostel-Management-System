@@ -84,21 +84,9 @@ public class Dashboard {
 		JButton roomdetbtn = new JButton("See Room Details");
 		roomdetbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
-					Statement stmt=con.createStatement();  
-					ResultSet rs=stmt.executeQuery("select * from room");  
-					while(rs.next())  
-					System.out.println(rs.getInt(1)+"  "+rs.getInt(2)+"  "+rs.getInt(3));
-					con.close();
-				}
-				catch(Exception re) {
-					System.out.println(re);
-				}
-				/*RoomDetails roomdet = new RoomDetails();
-				roomdet.rmdet();
-				dashboard.dispose();*/
+				RoomDetails romdet = new RoomDetails();
+				romdet.rmdet();
+				dashboard.dispose();
 			}
 		});
 		roomdetbtn.setBackground(new Color(204, 255, 153));

@@ -26,17 +26,19 @@ public class AllocRoom {
 	/**
 	 * Launch the application.
 	 */
-	public static void Allocation() {
+	public static String Allocation() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					AllocRoom window = new AllocRoom();
 					window.allocroom.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+			}			
 		});
+		return("success");
 	}
 
 	/**
