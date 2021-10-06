@@ -14,7 +14,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class AllocRoom {
@@ -135,8 +134,9 @@ public class AllocRoom {
 									catch(Exception re) {
 										JOptionPane.showMessageDialog(null,re);
 									}
+									JOptionPane.showMessageDialog(null,"Allocation Successfull");
 						}
-					JOptionPane.showMessageDialog(null,"Allocation Successfull");
+					
 				}
 			}
 		});
@@ -149,8 +149,7 @@ public class AllocRoom {
 		JButton dashbtn = new JButton("Dashboard");
 		dashbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
+				Dashboard.dashb();
 				allocroom.dispose();
 			}
 		});
@@ -159,5 +158,24 @@ public class AllocRoom {
 		dashbtn.setBackground(new Color(255, 204, 153));
 		dashbtn.setBounds(400, 14, 109, 21);
 		allocroom.getContentPane().add(dashbtn);
+		
+	}
+	public int allocactivity(String s1)
+	{
+		int rid = -1;
+		try {			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+			PreparedStatement stmt=con.prepareStatement("select rid from alloc_room where sid=?");
+			stmt.setString(1,s1);
+			ResultSet rs=stmt.executeQuery();  
+			while(rs.next())  
+			rid = (rs.getInt(1));
+			con.close();
+		}
+		catch(Exception re) {
+			JOptionPane.showMessageDialog(null,re);
+		}
+		return rid;
 	}
 }

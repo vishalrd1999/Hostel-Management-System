@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.border.LineBorder;
-import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,7 +20,6 @@ import java.awt.event.ActionEvent;
 public class RoomDetails {
 
 	private JFrame roomdet;
-	private JTable table;
 	private JTable tbl;
 
 	/**
@@ -61,8 +58,6 @@ public class RoomDetails {
 					rooms.add(robj);
 				}
 				con.close();
-				//System.out.println(rs.getInt(1)+"  "+rs.getInt(2)+"  "+rs.getInt(3));
-					
 		}
 		catch(Exception re) {
 			System.out.println(re);
@@ -84,19 +79,6 @@ public class RoomDetails {
 	}
 	
 	private void initialize() {		
-		/*try {
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
-					Statement stmt=con.createStatement();  
-					ResultSet rs=stmt.executeQuery("select * from room");  
-					while(rs.next())  
-					//System.out.println(rs.getInt(1)+"  "+rs.getInt(2)+"  "+rs.getInt(3));
-					con.close();	
-			}
-		catch(Exception re) {
-			System.out.println(re);
-			(58, 88, 377, 126)
-		}*/
 		
 		roomdet = new JFrame();
 		roomdet.getContentPane().setBackground(new Color(255, 255, 153));
@@ -126,8 +108,7 @@ public class RoomDetails {
 		JButton dashbtn = new JButton("Dashboard");
 		dashbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
+				Dashboard.dashb();
 				roomdet.dispose();
 			}
 		});

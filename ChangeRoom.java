@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
 public class ChangeRoom {
@@ -109,9 +110,10 @@ public class ChangeRoom {
 					try {
 						Class.forName("com.mysql.cj.jdbc.Driver");
 						Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
-						PreparedStatement ps = con.prepareStatement("update alloc_room set rid=? where rid=?");
+						PreparedStatement ps = con.prepareStatement("update alloc_room set rid=? where rid=? and sid=?" );
 						ps.setString(1,s3);
 						ps.setString(2,s2);
+						ps.setString(3,s1);
 						ps.executeUpdate();
 						con.close();	
 					}
@@ -153,8 +155,7 @@ public class ChangeRoom {
 		JButton dashbtn = new JButton("Dashboard");
 		dashbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
+				Dashboard.dashb();
 				chngroom.dispose();
 			}
 		});
@@ -165,5 +166,27 @@ public class ChangeRoom {
 		chngroom.getContentPane().add(dashbtn);
 		
 	}
-
+	
+	public static boolean changeactivity(String s1, String s2)
+	{
+		String rid = "-1";
+		try {			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+			PreparedStatement stmt=con.prepareStatement("select rid from alloc_room where sid=?");
+			stmt.setString(1,s1);
+			ResultSet rs=stmt.executeQuery();  
+			while(rs.next())  
+			rid = (rs.getString(1));
+			con.close();
+		}
+		catch(Exception re) {
+			JOptionPane.showMessageDialog(null,re);
+		}
+		if(rid.equals(s2))
+		{
+			return true;
+		}
+		else return false;
+	}
 }

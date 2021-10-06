@@ -140,8 +140,7 @@ public class DeallocRoom {
 		JButton dashbtn = new JButton("Dashboard");
 		dashbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
+				Dashboard.dashb();
 				deallocroom.dispose();
 			}
 		});
@@ -153,5 +152,24 @@ public class DeallocRoom {
 		deallocroom.setTitle("De-Allocate Room");
 		deallocroom.setBounds(100, 100, 583, 341);
 		deallocroom.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public int deallocactivity(String s1)
+	{
+		int rid = -1;
+		try {			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+			PreparedStatement stmt=con.prepareStatement("select rid from alloc_room where sid=?");
+			stmt.setString(1,s1);
+			ResultSet rs=stmt.executeQuery();  
+			while(rs.next())  
+			rid = (rs.getInt(1));
+			con.close();
+		}
+		catch(Exception re) {
+			JOptionPane.showMessageDialog(null,re);
+		}
+		return rid;
 	}
 }

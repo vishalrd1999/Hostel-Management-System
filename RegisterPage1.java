@@ -17,11 +17,14 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 public class RegisterPage1 {
-
+	
+	public static boolean status;
 	private JFrame registerpage1;
 	private JTextField nameinp;
 	private JTextField mailinp;
@@ -160,8 +163,7 @@ public class RegisterPage1 {
 		JButton dashbtn = new JButton("Dashboard");
 		dashbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
+				Dashboard.dashb();
 				registerpage1.dispose();
 			}
 		});
@@ -187,7 +189,7 @@ public class RegisterPage1 {
 						s3 = "FEMALE";
 						}    
 					
-				try {
+				/*try {
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
 					PreparedStatement ps = con.prepareStatement("insert into student(name,email,gender,class,mob,dob) values(?,?,?,?,?,?)");
@@ -202,18 +204,65 @@ public class RegisterPage1 {
 				}
 				catch(Exception re) {
 					JOptionPane.showMessageDialog(null,re);
-				}
-				JOptionPane.showMessageDialog(null,"Registration Successfull");
+				}*/
+				
+				regactivity(s1,s2,s3,s4,s5,s6);
 			}
 			}
 		});
 	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+	public boolean regactivity(String s1,String s2,String s3,String s4,String s5,String s6)
+	{
+		String name = "";
+		String email = "";
+		if(!s1.equals("") && !s2.equals("") && !s3.equals("") && !s4.equals("") && !s5.equals("") && !s6.equals(""))
+		{
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+				PreparedStatement ps = con.prepareStatement("insert into student(name,email,gender,class,mob,dob) values(?,?,?,?,?,?)");
+				ps.setString(1,s1);
+				ps.setString(2,s2);
+				ps.setString(3,s3);
+				ps.setString(4,s4);
+				ps.setString(5,s5);
+				ps.setString(6,s6);
+				ps.executeUpdate();
+				con.close();
+				JOptionPane.showMessageDialog(null,"Registration Successfull");
+			}
+			catch(Exception re) {
+				JOptionPane.showMessageDialog(null,re);
+			}
+			
+		
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+				PreparedStatement stmt=con.prepareStatement("select name,email from student where name=?");
+				stmt.setString(1,s1);
+				ResultSet rs=stmt.executeQuery();  
+				while(rs.next())  
+				{
+					name = rs.getString(1);
+					email = rs.getString(2);
+				}
+				
+				con.close();
+			}
+			catch(Exception re) {
+				JOptionPane.showMessageDialog(null,re);
+			}
 		}
-		public void actionPerformed(ActionEvent e) {
+
+		if(s1.equals(name) && s2.equals(email))
+		{
+			status = true;
 		}
+		else
+		{
+			status = false;
+		}
+		return status;
 	}
 }

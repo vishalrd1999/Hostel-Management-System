@@ -7,7 +7,6 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.*;
 import java.awt.event.ActionEvent;
 
 public class Dashboard {
@@ -58,8 +57,7 @@ public class Dashboard {
 		JButton updatedetbtn = new JButton("Update Student Details");
 		updatedetbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UpdateDetails upd = new UpdateDetails();
-				upd.Update();
+				UpdateDetails.Update();
 				dashboard.dispose();
 			}
 		});
@@ -71,8 +69,7 @@ public class Dashboard {
 		JButton roomallocbtn = new JButton("Allocate Room");
 		roomallocbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AllocRoom alloc = new AllocRoom();
-				alloc.Allocation();
+				AllocRoom.Allocation();
 				dashboard.dispose();
 			}
 		});
@@ -84,8 +81,7 @@ public class Dashboard {
 		JButton roomdetbtn = new JButton("See Room Details");
 		roomdetbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RoomDetails romdet = new RoomDetails();
-				romdet.rmdet();
+				RoomDetails.rmdet();
 				dashboard.dispose();
 			}
 		});
@@ -97,8 +93,7 @@ public class Dashboard {
 		JButton chngroombtn = new JButton("Change Student's Room");
 		chngroombtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ChangeRoom ch = new ChangeRoom();
-				ch.Change();
+				ChangeRoom.Change();
 				dashboard.dispose();
 			}
 		});
@@ -110,8 +105,7 @@ public class Dashboard {
 		JButton deallocroombtn = new JButton("De-allocate Room");
 		deallocroombtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DeallocRoom dealloc = new DeallocRoom();
-				dealloc.Deallocation();
+				DeallocRoom.Deallocation();
 				dashboard.dispose();
 			}
 		});
@@ -123,8 +117,7 @@ public class Dashboard {
 		JButton addstudbtn = new JButton("Add New Student");
 		addstudbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegisterPage1 reg = new RegisterPage1();
-				reg.Register();
+				RegisterPage1.Register();
 				dashboard.dispose();
 			}
 		});

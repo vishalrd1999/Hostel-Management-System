@@ -1,9 +1,7 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -16,11 +14,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class UpdateDetails {
-
+	public static boolean status;
 	public JFrame updatedet;
 	private JTextField idinp;
 	private JTextField mailinp;
@@ -121,9 +118,11 @@ public class UpdateDetails {
 					String s1 = idinp.getText();
 					String s2 = mailinp.getText();
 					String s3 = (String) classinp.getItemAt(classinp.getSelectedIndex());
-					String s4 = mobinp.getText();		
+					String s4 = mobinp.getText();
 					
-				try {
+					updactivity(s1,s2,s3,s4);
+					
+				/*try {
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
 					PreparedStatement ps = con.prepareStatement("update student set email=?,class=?,mob=? where sid=?");
@@ -136,7 +135,7 @@ public class UpdateDetails {
 				}
 				catch(Exception re) {
 					JOptionPane.showMessageDialog(null,re);
-				}
+				}*/
 				JOptionPane.showMessageDialog(null,"Update Successfull");
 			}
 			}
@@ -212,8 +211,7 @@ public class UpdateDetails {
 		JButton dashbtn = new JButton("Dashboard");
 		dashbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Dashboard db = new Dashboard();
-				db.dashb();
+				Dashboard.dashb();
 				updatedet.dispose();
 			}
 		});
@@ -223,4 +221,51 @@ public class UpdateDetails {
 		dashbtn.setBounds(464, 16, 109, 21);
 		updatedet.getContentPane().add(dashbtn);
 	}
+	
+	public boolean updactivity(String s1,String s2,String s3,String s4)
+	{
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+			PreparedStatement ps = con.prepareStatement("update student set email=?,class=?,mob=? where sid=?");
+			ps.setString(1,s2);
+			ps.setString(2,s3);
+			ps.setString(3,s4);
+			ps.setString(4,s1);
+			ps.executeUpdate();
+			con.close();
+		}
+		catch(Exception re) {
+			JOptionPane.showMessageDialog(null,re);
+		}
+		
+		String email = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","root");
+			PreparedStatement stmt=con.prepareStatement("select email from student where sid=?");
+			stmt.setString(1,s1);
+			ResultSet rs=stmt.executeQuery();  
+			while(rs.next())  
+			{
+				email = rs.getString(1);
+			}
+			
+			con.close();
+		}
+		catch(Exception re) {
+			JOptionPane.showMessageDialog(null,re);
+		}
+
+		if(s2.equals(email))
+		{
+			status = true;
+		}
+		else
+		{
+			status = false;
+		}
+		return status;
+	}
+	
 }

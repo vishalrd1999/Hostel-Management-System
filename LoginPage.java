@@ -13,15 +13,13 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class LoginPage {
 
+public class LoginPage {
 	private JFrame login;
 	private JTextField unameinp;
 	private JPasswordField pwdinp;
-
-	/**
-	 * Launch the application.
-	 */
+	public static boolean status;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,7 +43,7 @@ public class LoginPage {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		login = new JFrame();
 		login.getContentPane().setBackground(new Color(255, 255, 153));
 		login.getContentPane().setLayout(null);
@@ -70,32 +68,9 @@ public class LoginPage {
 		unameinp = new JTextField();
 		unameinp.setBounds(196, 103, 109, 19);
 		login.getContentPane().add(unameinp);
-		unameinp.setColumns(10);
+		unameinp.setColumns(10);		
 		
-		JButton loginbtn = new JButton("Login");
-		loginbtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==loginbtn)
-				{
-					String s1 = unameinp.getText();
-					String s2 = pwdinp.getText();					
-					if(s1.equals("admin") && s2.equals("password"))
-					{	
-						JOptionPane.showMessageDialog(null,"Login Successfull");
-						Dashboard db = new Dashboard();
-						db.dashb();
-						login.dispose();
-						
-					}
-					else JOptionPane.showMessageDialog(null,"Wrong Credentials");
-				}
-			}
-		});
-		loginbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-		loginbtn.setBackground(new Color(255, 204, 153));
-		loginbtn.setForeground(new Color(255, 0, 0));
-		loginbtn.setBounds(147, 208, 85, 31);
-		login.getContentPane().add(loginbtn);
+		//paste here
 		
 		pwdinp = new JPasswordField();
 		pwdinp.setBounds(196, 148, 109, 19);
@@ -103,5 +78,53 @@ public class LoginPage {
 		login.setTitle("Login Here");
 		login.setBounds(100, 100, 419, 318);
 		login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JButton loginbtn = new JButton("Login");
+		loginbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
+		loginbtn.setBackground(new Color(255, 204, 153));
+		loginbtn.setForeground(new Color(255, 0, 0));
+		loginbtn.setBounds(147, 208, 85, 31);
+		login.getContentPane().add(loginbtn);
+		loginbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==loginbtn)
+				{
+					String s1 = unameinp.getText();
+					@SuppressWarnings("deprecation")
+					String s2 = pwdinp.getText();
+					loginactivity(s1,s2);
+					/*if(s1.equals("admin") && s2.equals("password"))
+					{	
+						status = true;
+						JOptionPane.showMessageDialog(null,"Login Successfull");
+						Dashboard.dashb();
+						login.dispose();
+					}
+					else
+						{
+						status = false;
+						JOptionPane.showMessageDialog(null,"Wrong Credentials");
+						}*/
+				}
+			}
+		});		
+	}
+	
+	public boolean loginactivity(String uname, String pwd)
+	{
+		if(uname.equals("admin") && pwd.equals("password"))
+		{	
+			status = true;
+			JOptionPane.showMessageDialog(null,"Login Successfull");
+			Dashboard.dashb();
+			login.dispose();
+		}
+		else
+			{
+			status = false;
+			JOptionPane.showMessageDialog(null,"Wrong Credentials");
+			}
+		return status;
 	}
 }
+	
